@@ -31,53 +31,37 @@ class Control():
         self.textSurface = self.font.render(self.text,True,c.BLACK)
         return self.textSurface, self.textSurface.get_rect()
 
-    #Buttons
-    def Initial_buttons(self):
+    #Buttons      !PASAR ESTA AFUNCION A COMPONENTES!
+    def Initial_buttons(self,msg,x,y,w,h,ic,ac):
         mouse = pg.mouse.get_pos()
+        click = pg.mouse.get_pressed()
         self.smallText = pg.font.Font("freesansbold.ttf",20)
 
-        #new game 
-        pg.draw.rect(SCREEN,c.WHITE,(c.X,c.Y,c.X1,c.Y1)) 
-        self.textSurf,self.textRect = self.text_objects(c.NG,self.smallText)
-        self.textRect.center = ( (c.X+(c.X1/2)) , (c.Y+(c.Y1/2)) )
+        if x+w > mouse[0] > x and y+h> mouse[1] >y:
+            pg.draw.rect(SCREEN,ac,(x,y,w,h))
+        
+        else:
+            pg.draw.rect(SCREEN,ic,(x,y,w,h))
+        
+        self.textSurf,self.textRect = self.text_objects(msg,self.smallText)
+        self.textRect.center = ( (x+(w/2)) , (y+(h/2)) )
         SCREEN.blit(self.textSurf,self.textRect)
-        #load game
-        pg.draw.rect(SCREEN,c.WHITE,(c.X,c.Y+50,c.X1,c.Y1))   
-        self.textSurf1,self.textRect1 = self.text_objects(c.LG,self.smallText)
-        self.textRect1.center = ( (c.X+(c.X1/2)) , (c.Y+(c.Y1/2))+50 )
-        SCREEN.blit(self.textSurf1,self.textRect1)
-        #Configuration
-        pg.draw.rect(SCREEN,c.WHITE,(c.X,c.Y+100,c.X1,c.Y1))   
-        self.textSurf2,self.textRect2 = self.text_objects(c.CON,self.smallText)
-        self.textRect2.center = ( (c.X+(c.X1/2)) , (c.Y+(c.Y1/2))+100 )
-        SCREEN.blit(self.textSurf2,self.textRect2)
-        #hall of fame
-        pg.draw.rect(SCREEN,c.WHITE,(c.X,c.Y+150,c.X1,c.Y1))   
-        self.textSurf3,self.textRect3 = self.text_objects(c.HOF,self.smallText)
-        self.textRect3.center = ( (c.X+(c.X1/2)) , (c.Y+(c.Y1/2))+150 )
-        SCREEN.blit(self.textSurf3,self.textRect3)
-        #credits
-        pg.draw.rect(SCREEN,c.WHITE,(c.X,c.Y+200,c.X1,c.Y1))   
-        self.textSurf4,self.textRect4 = self.text_objects(c.CR,self.smallText)
-        self.textRect4.center = ( (c.X+(c.X1/2)) , (c.Y+(c.Y1/2))+200 )
-        SCREEN.blit(self.textSurf4,self.textRect4)
-        #help
-        pg.draw.rect(SCREEN,c.WHITE,(c.X,c.Y+250,c.X1,c.Y1))   
-        self.textSurf5,self.textRect5 = self.text_objects(c.HE,self.smallText)
-        self.textRect5.center = ( (c.X+(c.X1/2)) , (c.Y+(c.Y1/2))+250 )
-        SCREEN.blit(self.textSurf5,self.textRect5)
-        #exit
-        pg.draw.rect(SCREEN,c.WHITE,(c.X,c.Y+300,c.X1,c.Y1))   
-        self.textSurf6,self.textRect6 = self.text_objects(c.EX,self.smallText)
-        self.textRect6.center = ( (c.X+(c.X1/2)) , (c.Y+(c.Y1/2))+300 )
-        SCREEN.blit(self.textSurf6,self.textRect6)
+
+    def button_call(self):
+        self.Initial_buttons(c.NG,c.X,c.Y,c.X1,c.Y1,c.WHITE,c.GOLD)
+        self.Initial_buttons(c.LG,c.X,c.Y+50,c.X1,c.Y1,c.WHITE,c.GOLD)
+        self.Initial_buttons(c.CON,c.X,c.Y+100,c.X1,c.Y1,c.WHITE,c.GOLD)
+        self.Initial_buttons(c.HOF,c.X,c.Y+150,c.X1,c.Y1,c.WHITE,c.GOLD)
+        self.Initial_buttons(c.CR,c.X,c.Y+200,c.X1,c.Y1,c.WHITE,c.GOLD)
+        self.Initial_buttons(c.HE,c.X,c.Y+250,c.X1,c.Y1,c.WHITE,c.GOLD)
+        self.Initial_buttons(c.EX,c.X,c.Y+300,c.X1,c.Y1,c.WHITE,c.GOLD)
 
     def main(self):
         while not self.gameExit:  
             self.event_loop()
             SCREEN.fill(c.SKY_BLUE)   
             self.title_game()
-            self.Initial_buttons()
+            self.button_call()
             pg.display.update()       
             self.clock.tick(self.fps)
 
