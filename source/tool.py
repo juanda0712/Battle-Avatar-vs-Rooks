@@ -1,6 +1,7 @@
 
 import pygame as pg
 from . import constants as c
+from . import game_screen as gs
 
 
 class Control():
@@ -32,13 +33,19 @@ class Control():
         return self.textSurface, self.textSurface.get_rect()
 
     #Buttons      !PASAR ESTA AFUNCION A COMPONENTES!
-    def Initial_buttons(self,msg,x,y,w,h,ic,ac):
+    def Initial_buttons(self,msg,x,y,w,h,ic,ac,action=None):
         mouse = pg.mouse.get_pos()
         click = pg.mouse.get_pressed()
         self.smallText = pg.font.Font("freesansbold.ttf",20)
 
         if x+w > mouse[0] > x and y+h> mouse[1] >y:
             pg.draw.rect(SCREEN,ac,(x,y,w,h))
+            if click[0] == 1 and action != None:
+                if action == c.NG:
+                    game.main()
+                elif action == c.EX:
+                    self.gameExit = True
+                    
         
         else:
             pg.draw.rect(SCREEN,ic,(x,y,w,h))
@@ -48,13 +55,13 @@ class Control():
         SCREEN.blit(self.textSurf,self.textRect)
 
     def button_call(self):
-        self.Initial_buttons(c.NG,c.X,c.Y,c.X1,c.Y1,c.WHITE,c.GOLD)
-        self.Initial_buttons(c.LG,c.X,c.Y+50,c.X1,c.Y1,c.WHITE,c.GOLD)
-        self.Initial_buttons(c.CON,c.X,c.Y+100,c.X1,c.Y1,c.WHITE,c.GOLD)
-        self.Initial_buttons(c.HOF,c.X,c.Y+150,c.X1,c.Y1,c.WHITE,c.GOLD)
-        self.Initial_buttons(c.CR,c.X,c.Y+200,c.X1,c.Y1,c.WHITE,c.GOLD)
-        self.Initial_buttons(c.HE,c.X,c.Y+250,c.X1,c.Y1,c.WHITE,c.GOLD)
-        self.Initial_buttons(c.EX,c.X,c.Y+300,c.X1,c.Y1,c.WHITE,c.GOLD)
+        self.Initial_buttons(c.NG,c.X,c.Y,c.X1,c.Y1,c.WHITE,c.GOLD,c.NG)
+        self.Initial_buttons(c.LG,c.X,c.Y+50,c.X1,c.Y1,c.WHITE,c.GOLD,c.LG)
+        self.Initial_buttons(c.CON,c.X,c.Y+100,c.X1,c.Y1,c.WHITE,c.GOLD,c.CON)
+        self.Initial_buttons(c.HOF,c.X,c.Y+150,c.X1,c.Y1,c.WHITE,c.GOLD,c.HOF)
+        self.Initial_buttons(c.CR,c.X,c.Y+200,c.X1,c.Y1,c.WHITE,c.GOLD,c.CR)
+        self.Initial_buttons(c.HE,c.X,c.Y+250,c.X1,c.Y1,c.WHITE,c.GOLD,c.HE)
+        self.Initial_buttons(c.EX,c.X,c.Y+300,c.X1,c.Y1,c.WHITE,c.GOLD,c.EX)
 
     def main(self):
         while not self.gameExit:  
@@ -66,6 +73,7 @@ class Control():
             self.clock.tick(self.fps)
 
 
+game = gs.GameScreen()
 pg.init()
 pg.display.set_caption(c.ORIGINAL_CAPTION)
 SCREEN = pg.display.set_mode(c.SCREEN_SIZE)

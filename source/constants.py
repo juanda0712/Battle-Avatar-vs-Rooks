@@ -1,6 +1,8 @@
 
-
+ORIGINAL_TITLE   = 'BATTLE'
 ORIGINAL_CAPTION = 'Avatars vs Rooks'
+
+
 
 SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 600
@@ -16,5 +18,21 @@ PURPLE       = (255,   0, 255)
 GOLD         = (255, 215,   0)
 GREEN        = (  0, 255,   0)
 
-
+#Title principal screen
 FONT_SIZE = 65
+
+#buttons position
+X  = 340
+Y  = 160
+X1 = 150
+Y1 = 30
+
+
+#Names Buttons
+NG  = "New game"
+LG  = "Load game"
+CON = "Configuration"
+HOF = "Hall of fame"
+CR  = "Credits"
+HE  = "Help"
+EX  = "Exit"
