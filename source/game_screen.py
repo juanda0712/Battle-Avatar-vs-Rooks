@@ -20,10 +20,7 @@ class GameScreen:
             GAME_SCREEN.fill(c.LIGHTYELLOW)   
             pg.display.update()       
             self.clock.tick(self.fps)
-
-
-
-
+        
 pg.init()
 pg.display.set_caption(c.ORIGINAL_CAPTION)
 GAME_SCREEN = pg.display.set_mode(c.SCREEN_SIZE)

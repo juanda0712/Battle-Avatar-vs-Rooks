@@ -1,8 +1,7 @@
-
 import pygame as pg
 from . import constants as c
 from . import game_screen as gs
-
+from sys import exit
 
 class Control():
     def __init__(self):
@@ -42,6 +41,7 @@ class Control():
             pg.draw.rect(SCREEN,ac,(x,y,w,h))
             if click[0] == 1 and action != None:
                 if action == c.NG:
+                    self.gameExit = True     
                     game.main()
                 elif action == c.EX:
                     self.gameExit = True
