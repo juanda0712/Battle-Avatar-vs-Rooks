@@ -36,3 +36,8 @@ HOF = "Hall of fame"
 CR  = "Credits"
 HE  = "Help"
 EX  = "Exit"
+
+#matrix constants
+M_WIDTH   = 5
+M_HEIGHT  = 9
+DIMENTION = 65

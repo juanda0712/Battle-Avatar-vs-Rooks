@@ -1,5 +1,6 @@
 from . import constants as c
 import pygame as pg
+from .component import matrix
 
 
 class GameScreen:
@@ -17,10 +18,13 @@ class GameScreen:
     def main(self):
         while not self.gameExit:  
             self.event_loop()
-            GAME_SCREEN.fill(c.LIGHTYELLOW)   
+            GAME_SCREEN.fill(c.LIGHTYELLOW)  
+            board.create_board() 
             pg.display.update()       
             self.clock.tick(self.fps)
-        
+
+
 pg.init()
 pg.display.set_caption(c.ORIGINAL_CAPTION)
 GAME_SCREEN = pg.display.set_mode(c.SCREEN_SIZE)
+board = matrix.Board(GAME_SCREEN)   
