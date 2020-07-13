@@ -41,3 +41,8 @@ EX  = "Exit"
 M_WIDTH   = 5
 M_HEIGHT  = 9
 DIMENTION = 65
+
+#Timer constants
+X_TIMER  = 650
+Y_TIMER  = 10 
+TIME_POS = (X_TIMER,Y_TIMER)

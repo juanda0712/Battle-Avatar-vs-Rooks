@@ -16,6 +16,7 @@ class GameScreen:
     def event_loop(self):
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                time.break_loop()
                 self.gameExit = True
     
     def start_animation(self):
@@ -41,4 +42,4 @@ pg.init()
 pg.display.set_caption(c.ORIGINAL_CAPTION)
 GAME_SCREEN = pg.display.set_mode(c.SCREEN_SIZE)
 board = matrix.Board(GAME_SCREEN)
-time  = timer.Timer()
+time  = timer.Timer(GAME_SCREEN,True)
