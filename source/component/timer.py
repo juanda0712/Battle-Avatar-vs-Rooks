@@ -7,36 +7,27 @@ class Timer:
     def __init__(self,screen,state):
 
         self.screen = screen
-        self.smallText = pg.font.SysFont("monospace", c.FONT_SIZE//4)
+        self.smallText = pg.font.SysFont("monospace", c.FONT_SIZE_TIMER)
         self.seconds = 00
         self.minutes = 00
         self.hours   = 00
         self.aux = 1
-        self.mainloop = state
+        self.loop = state
 
     def break_loop(self):
-        self.mainloop = False
+        self.loop = False
 
-    def count(self):
-        begin = time.time()
-        while self.mainloop:
-            end =  time.time()
-            self.seconds = end - begin
-            if int(self.seconds) == 60:
-                self.seconds = 00
-                self.minutes += 1
-                begin = time.time()
-            if self.minutes == 60:
-                self.minutes = 00
-                self.hours += 1
-                begin = time.time()
+    def count(self,begin):
+        self.begin   = begin
+        self.end     = time.time()
+        self.seconds = self.end - self.begin   
+        
+        out = [self.seconds]  
+        return out  
+        
             
-            output = self.smallText.render("Tiempo: " + str(self.hours)+":"+str(self.minutes)+":"+str(int(self.seconds)),0,c.BLACK)
-            self.screen.blit(output,c.TIME_POS)
-            pg.display.update()
-            
-
-            
+        
+        
             
             
             

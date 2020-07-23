@@ -1,4 +1,3 @@
-
 ORIGINAL_TITLE   = 'BATTLE'
 ORIGINAL_CAPTION = 'Avatars vs Rooks'
 
@@ -43,6 +42,12 @@ M_HEIGHT  = 9
 DIMENTION = 65
 
 #Timer constants
-X_TIMER  = 650
-Y_TIMER  = 10 
+X_TIMER  = 575
+Y_TIMER  = 150
 TIME_POS = (X_TIMER,Y_TIMER)
+FONT_SIZE_TIMER = 22
+
+#player name constants
+X_NAME   = 575
+Y_NAME   = 100
+NAME_POS = (X_NAME,Y_NAME)
