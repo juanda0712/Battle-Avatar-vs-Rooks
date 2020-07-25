@@ -1,12 +1,57 @@
 import pygame as pg
 from .. import constants as c
+import random
+
 class Board:
     def __init__(self,screen):
-        self.color = 0
         self.screen = screen
+        self.map = [[0 for x in range(c.M_WIDTH)] for y in range(c.M_HEIGHT)]
 
     def create_board(self):
-        for i in range(c.M_WIDTH):
-            for j in range(c.M_HEIGHT):
-                x,y = i*c.DIMENTION,j*c.DIMENTION
-                pg.draw.rect(self.screen,c.BLACK,[x+237.5,y+10.5,c.DIMENTION,c.DIMENTION],0)
+        count = 0
+        for i in range(c.M_HEIGHT):
+            for j in range(c.M_WIDTH):
+                x,y = j*c.DIMENTION,i*c.DIMENTION
+                if count%2 == 0:
+                    pg.draw.rect(self.screen,c.BLACK,[x+c.OFFSET_X,y+c.OFFSET_Y,c.DIMENTION,c.DIMENTION],0)
+                    count +=1
+                else:
+                    pg.draw.rect(self.screen,c.RED,[x+c.OFFSET_X,y+c.OFFSET_Y,c.DIMENTION,c.DIMENTION],0)
+                    count +=1
+    
+
+    def isValid(self, map_x, map_y):  #return True or False
+        if (map_x < 0 or map_x >= c.M_WIDTH or
+            map_y < 0 or map_y >= c.M_HEIGHT):
+            return False
+        return True
+
+    def isMovable(self, map_x, map_y):   #return True si es 0  or False si es 1 osea (esta ocupado)
+        return (self.map[map_y][map_x] == c.MAP_EMPTY)
+
+    def getMapIndex(self,x, y):  #devuelve la cuadricula en la que esta el mouse
+        x -= c.OFFSET_X
+        y -= c.OFFSET_Y
+        return (x // c.DIMENTION, y // c.DIMENTION)
+
+    def getMapGridPos(self,map_x, map_y):    #devuelve la posicion de las cuadriculas de la matrix
+        return (map_x * c.DIMENTION + c.DIMENTION//2 + c.OFFSET_X,
+                map_y * c.DIMENTION + c.DIMENTION//5 * 3 + c.OFFSET_Y)
+
+    
+    def setMapGridType(self, map_x, map_y, type):  #Asigna un tipo a la cuadricula
+        self.map[map_y][map_x] = type 
+
+    
+    def getRandomMapIndex(self):  #devuelve una posicion aleatoria de la matriz   
+            map_x = random.randint(0, c.M_WIDTH-1)
+            map_y = random.randint(0, c.M_HEIGHT-1)
+            return (map_x, map_y)
+            
+
+
+
+
+
+
+

@@ -1,4 +1,5 @@
 from . import constants as c
+from . import prueba_mouse as pm
 import pygame as pg
 from .component import matrix, timer, name
 from threading import Thread
@@ -56,6 +57,7 @@ class GameScreen:
             self.event_loop()
             GAME_SCREEN.fill(c.LIGHTYELLOW)  
             board.create_board()
+            pm.pos()
             self.call_time()
             name.show_name()
             pg.display.update()       

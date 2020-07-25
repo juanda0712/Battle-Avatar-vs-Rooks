@@ -40,6 +40,12 @@ EX  = "Exit"
 M_WIDTH   = 5
 M_HEIGHT  = 9
 DIMENTION = 65
+M = []
+MAP_EMPTY = 0
+MAP_EXIST = 1
+
+OFFSET_X = 238
+OFFSET_Y = 11
 
 #Timer constants
 X_TIMER  = 575
@@ -51,3 +57,7 @@ FONT_SIZE_TIMER = 22
 X_NAME   = 575
 Y_NAME   = 100
 NAME_POS = (X_NAME,Y_NAME)
+
+
+#state
+FLY = 'fly'
