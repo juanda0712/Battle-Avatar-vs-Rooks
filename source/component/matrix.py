@@ -47,7 +47,13 @@ class Board:
             map_x = random.randint(0, c.M_WIDTH-1)
             map_y = random.randint(0, c.M_HEIGHT-1)
             return (map_x, map_y)
-            
+
+    def showRooks(self, x, y):  
+        pos = None
+        map_x, map_y = self.getMapIndex(x, y)
+        if self.isValid(map_x, map_y) and self.isMovable(map_x, map_y):
+            pos = self.getMapGridPos(map_x, map_y)
+        return pos
 
 
 
