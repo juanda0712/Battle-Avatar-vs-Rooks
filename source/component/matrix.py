@@ -2,10 +2,26 @@ import pygame as pg
 from .. import constants as c
 import random
 
-class Board:
+class Torre(pg.sprite.Sprite):
+    def __init__(self,pos_x,pos_y):
+        pg.sprite.Sprite.__init__(self)
+        self.torre = pg.image.load(r'C:\Users\JuanDa\Documents\I SEMESTRE 2020\CURSOS CARRERA\Battle Avatars vs Rooks\Battle-Avatar-vs-Rooks\source\component\1.png')
+        self.rect = self.torre.get_rect()
+        self.rect.centerx = pos_x
+        self.rect.centery = pos_y-6
+    
+    def dibujar(self,superficie):
+        superficie.blit(self.torre,self.rect)
+
+class Board():
+
     def __init__(self,screen):
         self.screen = screen
         self.map = [[0 for x in range(c.M_WIDTH)] for y in range(c.M_HEIGHT)]
+        
+
+    def showMap(self):
+        return self.map
 
     def create_board(self):
         count = 0
@@ -18,6 +34,21 @@ class Board:
                 else:
                     pg.draw.rect(self.screen,c.RED,[x+c.OFFSET_X,y+c.OFFSET_Y,c.DIMENTION,c.DIMENTION],0)
                     count +=1
+
+    def detect(self):
+        
+        for n in range(c.M_HEIGHT):
+            for m in range(c.M_WIDTH):
+                x,y = m*c.DIMENTION,n*c.DIMENTION
+                if self.map[n][m] == 1:
+                    map_x,map_y = self.getMapGridPos(m, n)
+                    pg.draw.rect(self.screen,c.GOLD,[x+c.OFFSET_X,y+c.OFFSET_Y,c.DIMENTION,c.DIMENTION],0)
+                    t = Torre(map_x,map_y)
+                    t.dibujar(self.screen)
+    
+
+        
+                
     
 
     def isValid(self, map_x, map_y):  #return True or False
@@ -54,6 +85,14 @@ class Board:
         if self.isValid(map_x, map_y) and self.isMovable(map_x, map_y):
             pos = self.getMapGridPos(map_x, map_y)
         return pos
+
+    def showGrid(self,x,y):
+        map_x, map_y = self.getMapIndex(x, y)
+        if self.isValid(map_x, map_y) and self.isMovable(map_x, map_y):
+            self.map[map_y][map_x] = 1
+
+
+
 
 
 

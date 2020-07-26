@@ -6,6 +6,7 @@ from threading import Thread
 import time
 
 
+
 class GameScreen:
     
     def __init__(self):
@@ -25,16 +26,12 @@ class GameScreen:
                 show_time.break_loop()
                 name.break_loop()
                 self.gameExit = True
-    
-    def start_animation(self):
-        #time
-        """time_thread = Thread(target=show_time.count)
-        time_thread.daemon = True
-        time_thread.start()"""
-        #name
-        """name_thread = Thread(target=name.show_name)
-        name_thread.daemon = True
-        name_thread.start()"""
+            if event.type == pg.MOUSEBUTTONDOWN:
+                x,y = event.pos
+                print(f'Posicion: {board.showRooks(x,y)}')
+                board.showGrid(x,y)
+                for i in board.showMap():
+                    print(i)
     
     def call_time(self):
         list1 = show_time.count(self.begin)
@@ -57,10 +54,12 @@ class GameScreen:
             self.event_loop()
             GAME_SCREEN.fill(c.LIGHTYELLOW)  
             board.create_board()
-            pm.pos()
+            board.detect()
+            #pm.pos()
             self.call_time()
             name.show_name()
             pg.display.update()       
+
             self.clock.tick(self.fps)
 
 
