@@ -12,13 +12,15 @@ class Torre(pg.sprite.Sprite):
     
     def dibujar(self,superficie):
         superficie.blit(self.torre,self.rect)
+        
+
 
 class Board():
 
     def __init__(self,screen):
         self.screen = screen
         self.map = [[0 for x in range(c.M_WIDTH)] for y in range(c.M_HEIGHT)]
-        
+        self.torres = []
 
     def showMap(self):
         return self.map
@@ -27,27 +29,22 @@ class Board():
         count = 0
         for i in range(c.M_HEIGHT):
             for j in range(c.M_WIDTH):
-                x,y = j*c.DIMENTION,i*c.DIMENTION
+                x,y = j*c.DIMENTION, i*c.DIMENTION
                 if count%2 == 0:
-                    pg.draw.rect(self.screen,c.BLACK,[x+c.OFFSET_X,y+c.OFFSET_Y,c.DIMENTION,c.DIMENTION],0)
+                    pg.draw.rect(self.screen, c.BLACK, [x+c.OFFSET_X, y+c.OFFSET_Y, c.DIMENTION, c.DIMENTION], 0)
                     count +=1
                 else:
-                    pg.draw.rect(self.screen,c.RED,[x+c.OFFSET_X,y+c.OFFSET_Y,c.DIMENTION,c.DIMENTION],0)
+                    pg.draw.rect(self.screen, c.RED, [x+c.OFFSET_X, y+c.OFFSET_Y, c.DIMENTION, c.DIMENTION], 0)
                     count +=1
 
     def detect(self):
         
         for n in range(c.M_HEIGHT):
             for m in range(c.M_WIDTH):
-                x,y = m*c.DIMENTION,n*c.DIMENTION
                 if self.map[n][m] == 1:
-                    map_x,map_y = self.getMapGridPos(m, n)
-                    pg.draw.rect(self.screen,c.GOLD,[x+c.OFFSET_X,y+c.OFFSET_Y,c.DIMENTION,c.DIMENTION],0)
-                    t = Torre(map_x,map_y)
+                    map_x, map_y = self.getMapGridPos(m, n)
+                    t = Torre(map_x, map_y)
                     t.dibujar(self.screen)
-    
-
-        
                 
     
 

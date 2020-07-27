@@ -26,7 +26,7 @@ class GameScreen:
                 show_time.break_loop()
                 name.break_loop()
                 self.gameExit = True
-            if event.type == pg.MOUSEBUTTONDOWN:
+            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 x,y = event.pos
                 print(f'Posicion: {board.showRooks(x,y)}')
                 board.showGrid(x,y)
