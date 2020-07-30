@@ -11,19 +11,25 @@ class Avatar_archer():  #1
         self.damage = 2
         self.mov_speed = mov_speed
         self.attack_speed = attack_speed
-        self.imagenA = pg.image.load(os.path.join(c.PATH,"avatars/archer","Archer01.png"))
+        """self.imagenA = pg.image.load(os.path.join(c.PATH,"avatars/archer","Archer01.png"))
         self.imagenB = pg.image.load(os.path.join(c.PATH,"avatars/archer","Archer02.png"))
         self.imagenC = pg.image.load(os.path.join(c.PATH,"avatars/archer","Archer03.png"))
-        self.imagenD = pg.image.load(os.path.join(c.PATH,"avatars/archer","Archer04.png"))
+        self.imagenD = pg.image.load(os.path.join(c.PATH,"avatars/archer","Archer04.png"))"""
+
+        self.imagenA = pg.image.load('images\\avatars\\archer\\Archer01.png')
+        self.imagenB = pg.image.load('images\\avatars\\archer\\Archer02.png')
+        self.imagenC = pg.image.load('images\\avatars\\archer\\Archer03.png')
+        self.imagenD = pg.image.load('images\\avatars\\archer\\Archer04.png')
+        #C:\\Users\\The Folder\\WorldMap.jpg
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD]
         self.indexImages = 0
-        self.archer = self.images[self.indexImages]
-        self.rect = self.archer.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
 
     def draw(self,screen):
-        screen.blit(self.archer,self.rect)
+        screen.blit(self.frame,self.rect)
 
 
 class Avatar_tank():  #2
@@ -40,13 +46,13 @@ class Avatar_tank():  #2
         self.imagenD = pg.image.load(os.path.join(c.PATH,"avatars/tank","Tank04.png"))
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD]
         self.indexImages = 0
-        self.tank = self.images[self.indexImages]
-        self.rect = self.tank.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
 
     def draw(self,screen):
-        screen.blit(self.tank,self.rect)
+        screen.blit(self.frame,self.rect)
 
   
 class Avatar_lumberjack():  #3
@@ -64,13 +70,13 @@ class Avatar_lumberjack():  #3
         self.imagenD = pg.image.load(os.path.join(c.PATH,"avatars/Lumberjack","Lumberjack04.png")) 
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD]
         self.indexImages = 0
-        self.lumber = self.images[self.indexImages]
-        self.rect = self.lumber.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
 
     def draw(self,screen):
-        screen.blit(self.lumber,self.rect)
+        screen.blit(self.frame,self.rect)
 
 
 class Avatar_cannibal(): #4
@@ -87,13 +93,13 @@ class Avatar_cannibal(): #4
         self.imagenD = pg.image.load(os.path.join(c.PATH,"avatars/Cannibal","Cannibal04.png"))  
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD]
         self.indexImages = 0
-        self.cannibal = self.images[self.indexImages]
-        self.rect = self.cannibal.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
 
     def draw(self,screen):
-        screen.blit(self.cannibal,self.rect)
+        screen.blit(self.frame,self.rect)
 
 
 

@@ -63,6 +63,8 @@ MAP_EXIST = 1
 OFFSET_X = 238
 OFFSET_Y = 11
 
+F_BULLET = 596
+
 #Timer constants
 X_TIMER  = 575
 Y_TIMER  = 150

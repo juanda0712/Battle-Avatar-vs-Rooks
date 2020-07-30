@@ -18,23 +18,24 @@ class Sand_rook: #!
         self.imagenF = pg.image.load(os.path.join(c.PATH,"Rooks/SandRook","SandRook06.png"))
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD,self.imagenE,self.imagenF]
         self.indexImages = 0
-        self.sand = self.images[self.indexImages]
-        self.rect = self.sand.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y-6
         self.shootList = []
         self.index = 0
 
     def draw(self,screen):
-        screen.blit(self.sand,self.rect)
+        screen.blit(self.frame,self.rect)
 
 
     def shoot(self):
         self.shootList.append(Bullet(self.x,self.y,self.damage))
 
     def draw_shoot(self,screen):
-        self.shootList[0].draw_bullet(screen)
-        self.shootList[0].direction()
+        for bullet in self.shootList: 
+            bullet.direction()
+            bullet.draw_bullet(screen)
 
 
 class Rock_rook: #2
@@ -53,18 +54,22 @@ class Rock_rook: #2
         self.imagenF = pg.image.load(os.path.join(c.PATH,"Rooks/RockRook","RockRook06.png"))
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD,self.imagenE,self.imagenF]
         self.indexImages = 0
-        self.rock = self.images[self.indexImages]
-        self.rect = self.rock.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y-6
         self.shootList = []
 
     def draw(self,screen):
-        screen.blit(self.rock,self.rect)
+        screen.blit(self.frame,self.rect)
 
     def shoot(self):
         self.shootList.append(Bullet(self.x,self.y,self.damage))
-
+    
+    def draw_shoot(self,screen):
+        for bullet in self.shootList: 
+            bullet.direction()
+            bullet.draw_bullet(screen)
 class Fire_rook: #3
     def __init__(self,x,y,attack_speed):
         self.x = x
@@ -81,17 +86,22 @@ class Fire_rook: #3
         self.imagenF = pg.image.load(os.path.join(c.PATH,"Rooks/FireRook","FireRook06.png"))
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD,self.imagenE,self.imagenF]
         self.indexImages = 0
-        self.fire = self.images[self.indexImages]
-        self.rect = self.fire.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y-6
         self.shootList = []
 
     def draw(self,screen):
-        screen.blit(self.fire,self.rect)
+        screen.blit(self.frame,self.rect)
 
     def shoot(self):
         self.shootList.append(Bullet(self.x,self.y,self.damage))
+
+    def draw_shoot(self,screen):
+        for bullet in self.shootList: 
+            bullet.direction()
+            bullet.draw_bullet(screen)
 
 class Water_rook: #4
     def __init__(self,x,y,attack_speed):
@@ -109,19 +119,25 @@ class Water_rook: #4
         self.imagenF = pg.image.load(os.path.join(c.PATH,"Rooks/WaterRook","WaterRook06.png"))
         self.images = [self.imagenA,self.imagenB,self.imagenC,self.imagenD,self.imagenE,self.imagenF]
         self.indexImages = 0
-        self.water = self.images[self.indexImages]
-        self.rect = self.water.get_rect()
+        self.frame = self.images[self.indexImages]
+        self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y-6
         self.shootList = []
 
     def draw(self,screen):
-        screen.blit(self.water,self.rect)
+        screen.blit(self.frame,self.rect)
 
     def shoot(self):
         self.shootList.append(Bullet(self.x,self.y,self.damage))
 
+    def draw_shoot(self,screen):
+        for bullet in self.shootList: 
+            bullet.direction()
+            bullet.draw_bullet(screen)
 
+            
+        
 
 class Bullet:
     def __init__(self,x,y,damage):
@@ -130,7 +146,7 @@ class Bullet:
         self.rect = self.imagenA.get_rect()
         self.rect.centerx = x
         self.rect.centery = y-6
-        self.speed = 1
+        self.speed = 5
 
     def direction(self):
         self.rect.centery += self.speed
