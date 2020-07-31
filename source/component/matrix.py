@@ -13,19 +13,6 @@ class Board():
     def showMap(self):
         return self.map
 
-    def create_board(self,screen):
-        count = 0
-        for i in range(c.M_HEIGHT):
-            for j in range(c.M_WIDTH):
-                x,y = j*c.DIMENTION, i*c.DIMENTION
-                if count%2 == 0:
-                    pg.draw.rect(screen, c.BLACK, [x+c.OFFSET_X, y+c.OFFSET_Y, c.DIMENTION, c.DIMENTION], 0)
-                    count +=1
-                else:
-                    pg.draw.rect(screen, c.RED, [x+c.OFFSET_X, y+c.OFFSET_Y, c.DIMENTION, c.DIMENTION], 0)
-                    count +=1
-
-
     def isValid(self, map_x, map_y):  #return True or False
         if (map_x < 0 or map_x >= c.M_WIDTH or
             map_y < 0 or map_y >= c.M_HEIGHT):

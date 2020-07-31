@@ -4,12 +4,14 @@ import pygame as pg
 from .component import matrix, timer, name , avatars, draw
 from threading import Thread
 import time
+import os
 
 
 
 class GameScreen:
     
     def __init__(self):
+        self.bg = pg.image.load(os.path.join(c.PATH,"background","Fondo01.png"))
         self.screen = pg.display.get_surface()
         self.gameExit = False
         self.clock = pg.time.Clock()
@@ -27,10 +29,19 @@ class GameScreen:
             if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
                 x,y = event.pos
                 map_x,map_y = board.getMapIndex(x,y)
+                pos_x,pos_y = board.getMapGridPos(map_x,map_y)
                 if board.isValid(map_x,map_y) and board.isMovable(map_x, map_y):
                     board.setMapGridType(map_x,map_y,draw.rook_type)
+                    draw.create_rooks(map_x,map_y,board,draw.rook_type)
                     draw.rook_type = 0
-                    draw.create_rooks(map_x,map_y,board)
+                    
+                if draw.coins_exist == 1:
+                    if pos_x == draw.star[0].x and pos_y == draw.star[0].y and draw.rook_type ==0:
+                        draw.star.pop(0)
+                        draw.money +=50
+                        draw.coins_exist = 0
+
+                    
 
                 print(f'Posicion: {board.showRooks(x,y)}')
                 #board.getGridType(x,y)
@@ -87,26 +98,30 @@ class GameScreen:
         GAME_SCREEN.blit(self.textSurf,self.textRect)
 
     def button_call(self):
-        self.game_buttons(c.SR,c.X_GAME,c.Y_GAME+50,c.X1,c.Y1,c.WHITE,c.GOLD,1)
-        self.game_buttons(c.RR,c.X_GAME,c.Y_GAME+100,c.X1,c.Y1,c.WHITE,c.LIGHTBROWN,2)
-        self.game_buttons(c.FR,c.X_GAME,c.Y_GAME+150,c.X1,c.Y1,c.WHITE,c.RED,3)
-        self.game_buttons(c.WR,c.X_GAME,c.Y_GAME+200,c.X1,c.Y1,c.WHITE,c.SKY_BLUE,4)
+        self.game_buttons(c.SR1,c.X_GAME,c.Y_GAME+50,c.X1,c.Y1,c.WHITE,c.GOLD,1)
+        self.game_buttons(c.RR1,c.X_GAME,c.Y_GAME+100,c.X1,c.Y1,c.WHITE,c.LIGHTBROWN,2)
+        self.game_buttons(c.FR1,c.X_GAME,c.Y_GAME+150,c.X1,c.Y1,c.WHITE,c.RED,3)
+        self.game_buttons(c.WR1,c.X_GAME,c.Y_GAME+200,c.X1,c.Y1,c.WHITE,c.SKY_BLUE,4)
  
 
 #----------------------MAIN--------------------------------------------#
 
     def main(self):
-        while not self.gameExit:  
+        
+        while not self.gameExit:
+             
             self.event_loop() #captura eventos
-            GAME_SCREEN.fill(c.LIGHTYELLOW)   #color del fondo
-            board.create_board(GAME_SCREEN)  #create na matriz en la pantalla(guia)
+            pg.display.update()
+            GAME_SCREEN.fill(c.FONT_GREEN)   #color del fondo 
+            self.screen.blit(self.bg,(c.OFFSET_X-57,c.OFFSET_Y-55)) 
             self.button_call()    #Los botones de las torres
             draw.draw()             #dibuja los 
-            self.call_time()
-            name.show_name()
-            pg.display.update()    
-
+            self.call_time()    #timpo
+            name.show_name()    #Nombre jugador
             self.clock.tick(self.fps)
+               
+
+            
 
 
 pg.init()
@@ -115,4 +130,4 @@ GAME_SCREEN = pg.display.set_mode(c.SCREEN_SIZE)
 board = matrix.Board()
 show_time  = timer.Timer(GAME_SCREEN,True)
 name = name.Name(GAME_SCREEN,True)
-draw = draw.Painter(GAME_SCREEN)
+draw = draw.Painter(GAME_SCREEN,board)

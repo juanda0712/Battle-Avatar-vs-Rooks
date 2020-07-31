@@ -1,7 +1,7 @@
 import pygame as pg
 from . import constants as c
 from . import game_screen as gs
-
+import os
 
 class Control():
     def __init__(self):
@@ -63,17 +63,19 @@ class Control():
         self.Initial_buttons(c.HE,c.X,c.Y+250,c.X1,c.Y1,c.WHITE,c.GOLD,c.HE)
         self.Initial_buttons(c.EX,c.X,c.Y+300,c.X1,c.Y1,c.WHITE,c.GOLD,c.EX)
 
+
     def main(self):
         while not self.gameExit:  
             self.event_loop()
-            SCREEN.fill(c.SKY_BLUE)   
+            SCREEN.fill(c.SKY_BLUE) 
             self.title_game()
             self.button_call()
             pg.display.update()       
             self.clock.tick(self.fps)
 
 
-game = gs.GameScreen()
+
 pg.init()
+game = gs.GameScreen()
 pg.display.set_caption(c.ORIGINAL_CAPTION)
 SCREEN = pg.display.set_mode(c.SCREEN_SIZE)

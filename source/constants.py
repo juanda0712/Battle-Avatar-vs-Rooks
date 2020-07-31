@@ -3,9 +3,10 @@ import pygame as pg
 ORIGINAL_TITLE   = 'BATTLE'
 ORIGINAL_CAPTION = 'Avatars vs Rooks'
 
-
+#Direcccion a cambiar
 PATH = "C:/Users/JuanDa/Documents/I SEMESTRE 2020/CURSOS CARRERA/Battle Avatars vs Rooks/Battle-Avatar-vs-Rooks/source/component/images"
-PATH2 = "C:/Users/JuanDa/Documents/I SEMESTRE 2020/CURSOS CARRERA/Battle Avatars vs Rooks/Battle-Avatar-vs-Rooks/source/component/images"
+
+
 SCREEN_WIDTH  = 800
 SCREEN_HEIGHT = 680
 SCREEN_SIZE   = (SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -22,6 +23,7 @@ GREEN        = (0, 255,   0)
 BROWN        = (102, 51, 0)
 LIGHTBROWN   = (191, 113,  35)
 TRANS        = (38, 25, 2 )
+FONT_GREEN   = (51, 102, 0 )
 
 #Title principal screen
 FONT_SIZE = 65
@@ -48,7 +50,12 @@ SR = "Sand Rook"
 RR = "Rock Rook"
 FR = "Fire Rook"
 WR = "Water Rook"
-X_GAME = 80
+
+SR1 = "Sand Rook $50"
+RR1 = "Rock Rook $100"
+FR1 = "Fire Rook $150"
+WR1 = "Water Rook $150"
+X_GAME = 10
 Y_GAME = 100
 
 

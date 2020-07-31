@@ -30,12 +30,12 @@ class Sand_rook: #!
 
 
     def shoot(self):
-        self.shootList.append(Bullet(self.x,self.y,self.damage))
+        self.shootList.append(Bullet(self.x,self.y,self.damage,0))
 
     def draw_shoot(self,screen):
         for bullet in self.shootList: 
             bullet.direction()
-            bullet.draw_bullet(screen)
+            bullet.draw_bullet(screen,0)
 
 
 class Rock_rook: #2
@@ -64,12 +64,12 @@ class Rock_rook: #2
         screen.blit(self.frame,self.rect)
 
     def shoot(self):
-        self.shootList.append(Bullet(self.x,self.y,self.damage))
+        self.shootList.append(Bullet(self.x,self.y,self.damage,1))
     
     def draw_shoot(self,screen):
         for bullet in self.shootList: 
             bullet.direction()
-            bullet.draw_bullet(screen)
+            bullet.draw_bullet(screen,1)
 class Fire_rook: #3
     def __init__(self,x,y,attack_speed):
         self.x = x
@@ -96,12 +96,12 @@ class Fire_rook: #3
         screen.blit(self.frame,self.rect)
 
     def shoot(self):
-        self.shootList.append(Bullet(self.x,self.y,self.damage))
+        self.shootList.append(Bullet(self.x,self.y,self.damage,2))
 
     def draw_shoot(self,screen):
         for bullet in self.shootList: 
             bullet.direction()
-            bullet.draw_bullet(screen)
+            bullet.draw_bullet(screen,2)
 
 class Water_rook: #4
     def __init__(self,x,y,attack_speed):
@@ -129,21 +129,25 @@ class Water_rook: #4
         screen.blit(self.frame,self.rect)
 
     def shoot(self):
-        self.shootList.append(Bullet(self.x,self.y,self.damage))
+        self.shootList.append(Bullet(self.x,self.y,self.damage,3))
 
     def draw_shoot(self,screen):
         for bullet in self.shootList: 
             bullet.direction()
-            bullet.draw_bullet(screen)
+            bullet.draw_bullet(screen,3)
 
             
         
 
 class Bullet:
-    def __init__(self,x,y,damage):
+    def __init__(self,x,y,damage,i):
         self.damage = damage
-        self.imagenA = pg.image.load(os.path.join(c.PATH,"bullets","SandRook.png"))
-        self.rect = self.imagenA.get_rect()
+        self.imagenA = pg.image.load(os.path.join(c.PATH,"bullets","SandBullet01.png"))
+        self.imagenB = pg.image.load(os.path.join(c.PATH,"bullets","RockBullet01.png"))
+        self.imagenC = pg.image.load(os.path.join(c.PATH,"bullets","FireBullet01.png"))
+        self.imagenD = pg.image.load(os.path.join(c.PATH,"bullets","WaterBullet01.png"))
+        self.image = [self.imagenA,self.imagenB,self.imagenC,self.imagenD]
+        self.rect = self.image[i].get_rect()
         self.rect.centerx = x
         self.rect.centery = y-6
         self.speed = 5
@@ -152,5 +156,6 @@ class Bullet:
         self.rect.centery += self.speed
         
 
-    def draw_bullet(self,screen):
-        screen.blit(self.imagenA,self.rect)
+    def draw_bullet(self,screen,i):
+
+        screen.blit(self.image[i],self.rect)
