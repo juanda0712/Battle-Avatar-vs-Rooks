@@ -25,6 +25,11 @@ class Painter:
         self.attack3 = False
         self.attack4 = False
         self.attack5 = False
+        self.hit_avatar1 = 0
+        self.hit_avatar2 = 0
+        self.hit_avatar3 = 0
+        self.hit_avatar4 = 0
+        self.hit_avatar5 = 0
         self.index  = 0
         self.index2 = 0
         self.index_shoot1 = 0
@@ -42,7 +47,7 @@ class Painter:
         self.aux_coins=1
         self.coins_exist = 0
         self.time_avatar = 0
-        self.money = 1000
+        self.money = 100
         self.smallText = pg.font.SysFont("monospace", c.FONT_SIZE_TIMER)
         
         
@@ -53,12 +58,12 @@ class Painter:
         if self.aux_av == self.time:
             self.aux_av +=1
             self.time_avatar += 1
-        if self.time_avatar == 5:
+        if self.time_avatar == 8:
             self.time_avatar = 0
 
         if self.time_avatar == 0:
             self.time_avatar = 1
-            if random.randint(0,10) <= 7:
+            if random.randint(0,10) <= 5:
                 col = random.randint(0,4)
                 x,y = self.board.getMapGridPos(col,8)
                 ava = random.randint(1,4)
@@ -116,7 +121,7 @@ class Painter:
     def coins(self,value):
         self.value = value
         output1 = self.smallText.render('Coins: '+str(self.value),0,c.BLACK)
-        self.screen.blit(output1, (10,10))
+        self.screen.blit(output1, (13,350))
 
     def draw_alec_coins(self):
         while self.star != [] and self.aux_coins == 0:
@@ -152,9 +157,24 @@ class Painter:
             self.shoot_time_avatar3 += 1
             self.shoot_time_avatar4 += 1
             self.shoot_time_avatar5 += 1
+            self.hit_avatar1 += 1
+            self.hit_avatar2 += 1
+            self.hit_avatar3 += 1
+            self.hit_avatar4 += 1
+            self.hit_avatar5 += 1
+
+        #draw rectangles in the rows
+        for rect in self.rects:
+            rect.draw_rect(self.screen)
 
         #avatar collisions
-        for avatar in self.avatars:     
+        for avatar in self.avatars: 
+            map_x,map_y = self.board.getMapIndex(avatar.x,avatar.y)
+
+            if avatar.rect.centery == 40:
+                pg.quit()
+                
+
             #with row
             for col in self.rects:
                 if avatar.rect.colliderect(col.rect):
@@ -169,12 +189,13 @@ class Painter:
                         self.attack4 = True
                     if map_x == 4:
                         self.attack5 = True 
-            #with rooks
+
+            #avatar collite with rooks
             for rook in self.rooks:
                 if avatar.rect.colliderect(rook.rect):
                     avatar.avatar_move = False
-                """else:
-                    self.avatar_move = True"""
+                    
+                
 
             #with other avatar
             for avatar2 in self.avatars:
@@ -197,6 +218,12 @@ class Painter:
                                 if map_x == map_xa:
                                     avatar2.avatar_move = False
 
+            #Avatar win the game
+            
+            
+
+            
+
             
 
  
@@ -214,22 +241,30 @@ class Painter:
             self.index_shoot5 = 0
         if self.aux_coins == 10:
             self.aux_coins = 0
-        if self.shoot_time_avatar1 == 3:
+        if self.shoot_time_avatar1 == 5:
             self.shoot_time_avatar1 = 0
-        if self.shoot_time_avatar2 == 3:
+        if self.shoot_time_avatar2 == 5:
             self.shoot_time_avatar2 = 0
-        if self.shoot_time_avatar3 == 3:
+        if self.shoot_time_avatar3 == 5:
             self.shoot_time_avatar3 = 0
-        if self.shoot_time_avatar4 == 3:
+        if self.shoot_time_avatar4 == 5:
             self.shoot_time_avatar4 = 0
-        if self.shoot_time_avatar5 == 3:
+        if self.shoot_time_avatar5 == 5:
             self.shoot_time_avatar5 = 0
+        if self.hit_avatar1 == 5:
+            self.hit_avatar1 = 0
+        if self.hit_avatar2 == 5:
+            self.hit_avatar2 = 0
+        if self.hit_avatar3 == 5:
+            self.hit_avatar3 = 0
+        if self.hit_avatar4 == 5:
+            self.hit_avatar4 = 0
+        if self.hit_avatar5 == 5:
+            self.hit_avatar5 = 0
 
 
 
-        #draw stars
-        for coin in self.star:
-            coin.draw(self.screen)
+        
 
         #draw rooks
         for rook in self.rooks:
@@ -306,7 +341,7 @@ class Painter:
                 for avatar in self.avatars:
                     if bullet.rect.colliderect(avatar.rect):
                         rook.shootList.remove(bullet)
-                        avatar.health -= 1
+                        avatar.health -= bullet.damage
                     
                     if avatar.health  <=0:
                         self.avatars.remove(avatar)
@@ -354,22 +389,35 @@ class Painter:
                     for shoot in avatar.shootList :
                         if rook.rect.colliderect(shoot.rect) :
                             avatar.shootList.remove(shoot)
-                            rook.health -= 5
+                            rook.health -= shoot.damage
                         if rook.health <= 0:
                             self.board.map[map_y][map_x] = 0
                             self.rooks.remove(rook)
-                            avatar.avatar_move = True
-
-            
-
-
-            
-
+                            while avatar.shootList != []:
+                                avatar.shootList.pop(0)
+                            for avatar2 in self.avatars:
+                                if avatar2.range == 2 or avatar2.range ==1:
+                                    avatar2.avatar_move = True
+                elif avatar.range ==2:
+                    for shoot in avatar.shootList :
+                        if rook.rect.colliderect(shoot.rect) :
+                            avatar.shootList.remove(shoot)
+                            rook.health -= shoot.damage
+                        if rook.health <= 0:
+                            self.board.map[map_y][map_x] = 0
+                            self.rooks.remove(rook)
+                            while avatar.shootList != []:
+                                avatar.shootList.pop(0)
+                            for avatar2 in self.avatars:
+                                if avatar2.range == 2 or avatar2.range ==1:
+                                    avatar2.avatar_move = True
 
                 
         #draw avatars
         if self.index == 4:
-            self.index = 0    
+            self.index = 0 
+
+        #Avatars range attack   
         for avatar in self.avatars:
             map_x,map_y = self.board.getMapIndex(avatar.x,avatar.y)
             if avatar.avatar_move:
@@ -440,11 +488,71 @@ class Painter:
                             avatar2.shoot() 
                     
                     self.shoot_time_avatar5 = 1
-                    
-        #draw rectangles in the rows
-        for rect in self.rects:
-            rect.draw_rect(self.screen)
 
-        
-#board = matrix.Board()
+            #HIT AVATAR
+            if  avatar.avatar_move == False and avatar.range ==2 and map_x == 0:
+                if avatar.shootList != []:
+                    avatar.draw_shoot(self.screen)
+
+                if  self.hit_avatar1 == 0:
+                    for avatar2 in self.avatars:
+                        map_x,map_y = self.board.getMapIndex(avatar2.x,avatar2.y)
+                        if map_x == 0 and avatar2.range==2:
+                            avatar2.shoot() 
+                    
+                    self.hit_avatar1 = 1
+
+            elif  avatar.avatar_move == False and avatar.range ==2 and map_x == 1:
+                if avatar.shootList != []:
+                    avatar.draw_shoot(self.screen)
+
+                if  self.hit_avatar2 == 0:
+                    for avatar2 in self.avatars:
+                        map_x,map_y = self.board.getMapIndex(avatar2.x,avatar2.y)
+                        if map_x == 1 and avatar2.range==2:
+                            avatar2.shoot() 
+                    
+                    self.hit_avatar2 = 1
+
+            elif  avatar.avatar_move == False and avatar.range ==2 and map_x == 2:
+                if avatar.shootList != []:
+                    avatar.draw_shoot(self.screen)
+
+                if  self.hit_avatar3 == 0:
+                    for avatar2 in self.avatars:
+                        map_x,map_y = self.board.getMapIndex(avatar2.x,avatar2.y)
+                        if map_x == 2 and avatar2.range==2:
+                            avatar2.shoot() 
+                    
+                    self.hit_avatar3 = 1
+
+            elif  avatar.avatar_move == False and avatar.range ==2 and map_x == 3:
+                if avatar.shootList != []:
+                    avatar.draw_shoot(self.screen)
+
+                if  self.hit_avatar4 == 0:
+                    for avatar2 in self.avatars:
+                        map_x,map_y = self.board.getMapIndex(avatar2.x,avatar2.y)
+                        if map_x == 3 and avatar2.range==2:
+                            avatar2.shoot() 
+                    
+                    self.hit_avatar4 = 1
+
+            elif  avatar.avatar_move == False and avatar.range ==2 and map_x == 4:
+                if avatar.shootList != []:
+                    avatar.draw_shoot(self.screen)
+
+                if  self.hit_avatar5 == 0:
+                    for avatar2 in self.avatars:
+                        map_x,map_y = self.board.getMapIndex(avatar2.x,avatar2.y)
+                        if map_x == 4 and avatar2.range==2:
+                            avatar2.shoot() 
+                    
+                    self.hit_avatar5 = 1
+
+        #draw stars
+        for coin in self.star:
+            coin.draw(self.screen)
+
+
 

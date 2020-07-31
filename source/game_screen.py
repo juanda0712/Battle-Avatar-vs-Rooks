@@ -12,6 +12,7 @@ class GameScreen:
     
     def __init__(self):
         self.bg = pg.image.load(os.path.join(c.PATH,"background","Fondo01.png"))
+        self.bg2 = pg.image.load(os.path.join(c.PATH,"background","Fondo02.png"))
         self.screen = pg.display.get_surface()
         self.gameExit = False
         self.clock = pg.time.Clock()
@@ -64,7 +65,7 @@ class GameScreen:
             self.hours +=1
         
         output = show_time.smallText.render("Tiempo: "+ str(self.hours)+":"+str(self.minutes)+":"+str(int(list1[0])),0,c.BLACK)
-        self.screen.blit(output,c.TIME_POS)
+        self.screen.blit(output,(200,600))
 
 
 #----------------------BUTTONS------------------------------------------#
@@ -113,11 +114,11 @@ class GameScreen:
             self.event_loop() #captura eventos
             pg.display.update()
             GAME_SCREEN.fill(c.FONT_GREEN)   #color del fondo 
+            self.screen.blit(self.bg2,(0,0))
             self.screen.blit(self.bg,(c.OFFSET_X-57,c.OFFSET_Y-55)) 
             self.button_call()    #Los botones de las torres
             draw.draw()             #dibuja los 
             self.call_time()    #timpo
-            name.show_name()    #Nombre jugador
             self.clock.tick(self.fps)
                
 
@@ -129,5 +130,5 @@ pg.display.set_caption(c.ORIGINAL_CAPTION)
 GAME_SCREEN = pg.display.set_mode(c.SCREEN_SIZE)
 board = matrix.Board()
 show_time  = timer.Timer(GAME_SCREEN,True)
-name = name.Name(GAME_SCREEN,True)
+#name = name.Name(GAME_SCREEN,True)
 draw = draw.Painter(GAME_SCREEN,board)

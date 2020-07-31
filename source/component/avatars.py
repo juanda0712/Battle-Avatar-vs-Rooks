@@ -94,9 +94,18 @@ class Avatar_lumberjack():  #3
         self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
+        self.shootList = []
 
     def draw(self,screen):
         screen.blit(self.frame,self.rect)
+
+    def shoot(self):
+        self.shootList.append(Bullet(self.rect.centerx,self.rect.centery,self.damage,2))
+
+    def draw_shoot(self,screen):
+        for bullet in self.shootList: 
+            bullet.direction()
+            bullet.draw_bullet(screen,2)
 
 
 class Avatar_cannibal(): #4
@@ -119,32 +128,27 @@ class Avatar_cannibal(): #4
         self.rect = self.frame.get_rect()
         self.rect.centerx = x
         self.rect.centery = y
+        self.shootList = []
 
     def draw(self,screen):
         screen.blit(self.frame,self.rect)
 
+    def shoot(self):
+        self.shootList.append(Bullet(self.rect.centerx,self.rect.centery,self.damage,2))
 
-class Bullet:
-    def __init__(self,x,y,damage):
-        self.damage = damage
-        self.imagenA = pg.image.load(os.path.join(c.PATH,"bullets","SandRook.png"))
-        self.rect = self.imagenA.get_rect()
-        self.rect.centerx = x
-        self.rect.centery = y-6
-        self.speed = 5
+    def draw_shoot(self,screen):
+        for bullet in self.shootList: 
+            bullet.direction()
+            bullet.draw_bullet(screen,2)
 
-    def direction(self):
-        self.rect.centery -= self.speed
-        
 
-    def draw_bullet(self,screen):
-        screen.blit(self.imagenA,self.rect)
 class Bullet:
     def __init__(self,x,y,damage,i):
         self.damage = damage
         self.imagenA = pg.image.load(os.path.join(c.PATH,"bullets","TankBullet01.png"))
         self.imagenB = pg.image.load(os.path.join(c.PATH,"bullets","ArcherBullet01.png"))
-        self.image = [self.imagenA,self.imagenB]
+        self.imagenC = pg.image.load(os.path.join(c.PATH,"bullets","ArcherBullet01.png"))
+        self.image = [self.imagenA,self.imagenB,self.imagenC]
         self.rect = self.image[i].get_rect()
         self.rect.centerx = x
         self.rect.centery = y-6

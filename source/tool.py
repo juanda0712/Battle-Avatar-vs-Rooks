@@ -1,6 +1,7 @@
 import pygame as pg
 from . import constants as c
 from . import game_screen as gs
+from . import credits ,help
 import os
 
 class Control():
@@ -45,6 +46,15 @@ class Control():
                     game.start_time()
                 elif action == c.EX:
                     self.gameExit = True
+                elif action == c.CR:
+                    self.gameExit = True
+                    credit.main()
+                elif action == c.HE:
+                    self.gameExit = True
+                    help.main()
+
+
+
                     
         
         else:
@@ -56,12 +66,9 @@ class Control():
 
     def button_call(self):
         self.Initial_buttons(c.NG,c.X,c.Y,c.X1,c.Y1,c.WHITE,c.GOLD,c.NG)
-        self.Initial_buttons(c.LG,c.X,c.Y+50,c.X1,c.Y1,c.WHITE,c.GOLD,c.LG)
-        self.Initial_buttons(c.CON,c.X,c.Y+100,c.X1,c.Y1,c.WHITE,c.GOLD,c.CON)
-        self.Initial_buttons(c.HOF,c.X,c.Y+150,c.X1,c.Y1,c.WHITE,c.GOLD,c.HOF)
-        self.Initial_buttons(c.CR,c.X,c.Y+200,c.X1,c.Y1,c.WHITE,c.GOLD,c.CR)
-        self.Initial_buttons(c.HE,c.X,c.Y+250,c.X1,c.Y1,c.WHITE,c.GOLD,c.HE)
-        self.Initial_buttons(c.EX,c.X,c.Y+300,c.X1,c.Y1,c.WHITE,c.GOLD,c.EX)
+        self.Initial_buttons(c.CR,c.X,c.Y+50,c.X1,c.Y1,c.WHITE,c.GOLD,c.CR)
+        self.Initial_buttons(c.HE,c.X,c.Y+100,c.X1,c.Y1,c.WHITE,c.GOLD,c.HE)
+        self.Initial_buttons(c.EX,c.X,c.Y+150,c.X1,c.Y1,c.WHITE,c.GOLD,c.EX)
 
 
     def main(self):
@@ -77,5 +84,7 @@ class Control():
 
 pg.init()
 game = gs.GameScreen()
+credit = credits.Credit()
+help = help.Help()
 pg.display.set_caption(c.ORIGINAL_CAPTION)
 SCREEN = pg.display.set_mode(c.SCREEN_SIZE)

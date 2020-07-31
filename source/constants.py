@@ -51,10 +51,10 @@ RR = "Rock Rook"
 FR = "Fire Rook"
 WR = "Water Rook"
 
-SR1 = "Sand Rook $50"
-RR1 = "Rock Rook $100"
-FR1 = "Fire Rook $150"
-WR1 = "Water Rook $150"
+SR1 = "SandRook $50"
+RR1 = "RockRook $100"
+FR1 = "FireRook $150"
+WR1 = "WaterRook $150"
 X_GAME = 10
 Y_GAME = 100
 
